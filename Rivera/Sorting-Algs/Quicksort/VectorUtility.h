@@ -5,7 +5,7 @@ int* CreateVectorDebug(int, int);
 
 void PopulateVector(int*, int);
 int* CreateVector(int);
-void ShowVector(int*, int);
+void ShowVector(int*, int, int, int);
 
 #ifdef DEBUG
 #define PopulateVector(A, B) PopulateVectorDebug(A, B, __LINE__)

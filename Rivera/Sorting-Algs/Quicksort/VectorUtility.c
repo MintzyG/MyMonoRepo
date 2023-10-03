@@ -6,7 +6,7 @@
 void PopulateVectorDebug(int* Vector, int Size, int Line) {
     int Amount = 0;
     for (int i = 0; i < Size; i++) {
-        Vector[i] = rand() % 1000;  
+        Vector[i] = rand() % 56;  
         Amount++;
     }  
     printf("\nDEBUG -- PopulateVector | [INSERTED %d VALUES AT LINE %d] -- DEBUG\n", Amount, Line);
@@ -21,17 +21,18 @@ int* CreateVectorDebug(int Size, int Line) {
 
 #endif
 
-void ShowVector(int* Vector, int Size) {
+void ShowVector(int* Vector, int Size, int width, int block_size) {
     printf("\n");
-    for (int i = 0; i < Size; i++)
-        printf("%3d ", Vector[i]);
 
-    printf("\n");
+    printf(" %*s", (block_size + 1)/2, " ");
+    for (int i = 0; i < Size; i++) {
+        printf("%d%*s", Vector[i], block_size-1, " ");
+    }
 }
 
 void PopulateVector(int* Vector, int Size) {
     for (int i = 0; i < Size; i++)
-        Vector[i] = rand() % 1000;  
+        Vector[i] = rand() % 56;  
 }
 
 int* CreateVector(int Size) {
