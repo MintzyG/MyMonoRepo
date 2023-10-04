@@ -1,6 +1,11 @@
-# Why this exists:
+## Why this exists:
+    
+- Second university assignment from `Programming-2` class of 2023-2 (UENF)
 
-  This is an univeristy assignment to code quick-sort
+## What did it ask/What did I do?
+
+- Code Quick-Sort First or Last recursively
+- Show every step the array took to become sorted
 
 ## What did I do/learn?
 
@@ -11,3 +16,12 @@ Since I already knew quick-sort I used the assignment to:
 - Bash scripting for automation
 - Started to get a code base going
 - Visualized a sort just like those youtube videos :)
+- Learned how to pass unitialized pointers/structs to functions for initializations
+- Used ioctl to fit my visualization in any terminal sized in any way
+
+## What do I think of this after?
+
+This is a much better suited assignment for first assignment in a class where most students barely coded before and even less used C.
+
+As a follow-up to the first exercise this is weird
+
