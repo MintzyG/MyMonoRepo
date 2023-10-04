@@ -1,6 +1,6 @@
 # Why this exists:
 
-  This is an univeristy assignment to just simply create quick-sort
+  This is an univeristy assignment to code quick-sort
 
 ## What did I do/learn?
 
