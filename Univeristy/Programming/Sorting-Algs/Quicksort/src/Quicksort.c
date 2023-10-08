@@ -57,18 +57,19 @@ void DrawGraph(int* vector, int keys, int block_size, int height) {
 void QuickSort(int* vector, int first, int last, struct winsize w, int keys, int block_size, char** argv) {
     if (last - first < 2)
         return;
-
+  
     int pivot = vector[first];
     int pointer_b = last - 1 /*, pointer_a = start*/;
     int swap_marker = last;
-
+    
     for (int i = pointer_b; i >= first; i--)
         if (vector[i] >= pivot) {
             swap_marker--; 
             if (i < swap_marker)
                 Swap(vector, i, swap_marker);
         } 
-   
+  
+    // Used for drawing each step to console
     if(atoi(argv[2]) != 0) {
         DrawGraph(vector, keys, block_size, w.ws_row);
         ShowVectorPaddingCustom(vector, keys, w.ws_col, block_size);
