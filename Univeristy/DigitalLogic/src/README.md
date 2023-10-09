@@ -33,3 +33,12 @@ this information is sent to the next circuit to process what happens to the cell
 
 ### CSRA23S
 
+![](https://github.com/MintzyG/MyMonoRepo/blob/master/Univeristy/DigitalLogic/imgs/CSRTA23S.png)
+
+Inside this circuit we receive the previous chip outputs and the current cell's state, then we process what should happen
+with this cell, originally we would just set the next state directly, so if the cell was alive and had three neighbours
+we'd output 1. This however had a curious side effect of making half the truth table of the chip impossible, since the previous
+chip was incapable of outputting half the truth table. The way we did solve this problem was a re-interpretation of how
+this chip interprets the rules and cell state, it no longer outputs the next state directly, it now outputs if we should flip
+the current state or not, this makes the impossible outputs a zero, meaning "do not flip state", however we have to remove
+functionality from the chip to actually apply the next state to the cell.
