@@ -27,7 +27,10 @@ Very cool assignment, had fun making it, and learning through it.
 ## My Group
 
 [Bruno](https://github.com/BMSales)
+
 [Zadoque]()
+
 [Artur]()
+
 [Emanuel]()
 
