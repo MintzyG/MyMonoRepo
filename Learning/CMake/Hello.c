@@ -2,6 +2,6 @@
 
 int main() {
 
-    printf("Hello CMake");
+    printf("Hello CMake Test");
     return 0;
 }
