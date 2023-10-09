@@ -11,7 +11,7 @@
 This was a group exercise and I thought me and my group could make something a little cooler, so we did.
 We chose a 3x3 grid of Conway's Game of Life as our "Book exercise" even tho it wasn't in the book hehe.
 
-Circuit explanation [here]().
+Circuit explanation [here](https://github.com/MintzyG/MyMonoRepo/blob/master/Univeristy/DigitalLogic/src/README.md).
 
 - Used simplification techniques like Karnaugh maps and Mathmatical Logic
 - Learned how to create a inputs to binary circuit
