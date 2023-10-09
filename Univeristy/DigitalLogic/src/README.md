@@ -23,7 +23,7 @@ Well we chose to tackle how a cell interprets a rule first, which we did in a ci
 
 ### LOD23S
 
-[](https://github.com/MintzyG/MyMonoRepo/blob/master/Univeristy/DigitalLogic/imgs/LOD23S.png)
+![](https://github.com/MintzyG/MyMonoRepo/blob/master/Univeristy/DigitalLogic/imgs/LOD23S.png)
 
 Here we receive as input the amount of neighbours the current cell has in binary, the circuit then processes
 which rule to activate independent of cell state, it outputs 1 in channel 'E' if a rule is activated and then
