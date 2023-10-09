@@ -28,4 +28,4 @@ As a follow-up to the first exercise this is weird
 ## Images
 | Input array |  Output array |
 :-------------------------:|:-------------------------:
-![](https://raw.githubusercontent.com/MintzyG/DevMonoRepo/master/Rivera/Sorting-Algs/Quicksort/a.png?token=GHSAT0AAAAAACHLQ7HCOOFMDEZUSMZIANQUZI42SDQ) | ![](https://raw.githubusercontent.com/MintzyG/DevMonoRepo/master/Rivera/Sorting-Algs/Quicksort/b.png?token=GHSAT0AAAAAACHLQ7HDP73YUDSBXIBOUUX4ZI42SNA)
+![](https://github.com/MintzyG/MyMonoRepo/blob/master/Univeristy/Programming/Sorting-Algs/Quicksort/a.png) | ![](https://github.com/MintzyG/MyMonoRepo/blob/master/Univeristy/Programming/Sorting-Algs/Quicksort/b.png)
