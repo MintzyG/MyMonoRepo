@@ -32,5 +32,5 @@ Very cool assignment, had fun making it, and learning through it.
 
 [Artur]()
 
-[Emanuel]()
+[Emanuel](https://github.com/EmanuelPeixoto)
 
