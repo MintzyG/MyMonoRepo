@@ -1,3 +1,0 @@
-/home/sophia/Dev/Learning/CMake/Step1Build/CMakeFiles/HelloCmake.dir
-/home/sophia/Dev/Learning/CMake/Step1Build/CMakeFiles/edit_cache.dir
-/home/sophia/Dev/Learning/CMake/Step1Build/CMakeFiles/rebuild_cache.dir
