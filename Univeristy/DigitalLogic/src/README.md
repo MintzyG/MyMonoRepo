@@ -41,4 +41,9 @@ we'd output 1. This however had a curious side effect of making half the truth t
 chip was incapable of outputting half the truth table. The way we did solve this problem was a re-interpretation of how
 this chip interprets the rules and cell state, it no longer outputs the next state directly, it now outputs if we should flip
 the current state or not, this makes the impossible outputs a zero, meaning "do not flip state", however we have to remove
-functionality from the chip to actually apply the next state to the cell.
+functionality from the chip to actually apply the next state to the cell. Do not worry about the flip flop at the end of the chip,
+this will be explained later.
+
+### CELL HEART
+
+![](https://github.com/MintzyG/MyMonoRepo/blob/master/Univeristy/DigitalLogic/imgs/CELL-HEART.png)
