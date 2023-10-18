@@ -13,70 +13,65 @@
 
 // CosTheta = Esc(A,B)/|A|*|B|
 
-void ShowPoints(float** mat, int size, int ponto_size){
+typedef struct Ponto {
+    float x, y;
+    float ang, dir;
+} Ponto;
+
+void ShowPoints(Ponto* ponto, int size){
     for (int i = 0; i < size; i++){
-        for (int j = 0; j < ponto_size -1; j++) printf("%7.2f\t", mat[i][j]);
-        printf("\n");
+        printf("%7.2f\t", ponto[i].x);
+        printf("%7.2f\t", ponto[i].y);
+        printf("%7.2f\t", ponto[i].ang);
+        printf("%7.2f\n", ponto[i].dir);
     }
 }
 
-void ShowVectors(float** mat, int size, int ponto_size){
-    for (int i = 0; i < size; i++){
-        printf("(%f,%f)", mat[i][0], mat[i][1]);
-        printf("\n");
-    }
-}
-
-void CreatePoints(float** mat, int size){
+void CreatePoints(Ponto* ponto, int size){
     int sign1, sign2;
     for (int i = 0; i < size; i++){ 
         sign1 = rand() % 2;
         if (sign1 == 0) sign1 = -1;
         sign2 = rand() % 2;
         if (sign2 == 0) sign2 = -1;
-        mat[i][0] = sign1 * rand() % 200; 
-        mat[i][1] = sign2 * rand() % 200; 
+        ponto[i].x = sign1 * rand() % 200; 
+        ponto[i].y = sign2 * rand() % 200; 
     }
 }
 
-float** ConnectPoints(float** mat, int size, float ponto_size){
-
-    float** result_vectors = (float**)malloc(size * sizeof(float*));
-    for (int i = 0; i < size; i++) result_vectors[i] = (float*)malloc(ponto_size * sizeof(float));
-
-    for(int i = 0; i < size; i++){
-        result_vectors[i][0] = mat[(i + 1) % size][0] - mat[i][0];
-        result_vectors[i][1] = mat[(i + 1) % size][1] - mat[i][1];
-    }
-    return result_vectors;
+void Init(Ponto* ponto){
+    ponto->x = 1;
+    ponto->y = 1;
+    ponto->ang = 1;
+    ponto->dir = 1;
 }
 
-// Calcula a direção entre o vetor dado e o vetor (0,1)
-float DirecaoVetor(float* vetor){
-    return vetor[0] * 1;
+/*
+void PrintPonto(Ponto ponto){
+    printf("X: %f\nY: %f\nAng: %f\nDir: %f", 
+            ponto.x,
+            ponto.y,
+            ponto.ang,
+            ponto.dir);
 }
-    
+*/
+
 int main() {
     srand(time(NULL));
 
-    int size, ponto_size = 3;
+    Ponto ponto;
+    Init(&ponto);
+    //PrintPonto(ponto);
+
+    int size;
 
     printf("How many points: ");
     scanf("%d", &size);
-    float** matriz_pontos = (float**)malloc(size * sizeof(float*));
-    for (int i = 0; i < size; i++) matriz_pontos[i] = (float*)malloc(ponto_size * sizeof(float)); 
+    Ponto* vetor_pontos = (Ponto*)malloc(size * sizeof(Ponto));
 
-    CreatePoints(matriz_pontos, size);
+    CreatePoints(vetor_pontos, size);
     printf("Your points: \n");
-    ShowPoints(matriz_pontos, size, ponto_size);
+    ShowPoints(vetor_pontos, size);
     
-    float** vetores = ConnectPoints(matriz_pontos, size, ponto_size);
-
-    printf("\nResulting vectors from connection: \n");
-    ShowVectors(vetores, size, ponto_size);
-
-    for (int i = 0; i < size; i++)
-        printf("Direção do vetor %d: %f\n", i+1, DirecaoVetor(matriz_pontos[i]));
-
     return 0;
 }
