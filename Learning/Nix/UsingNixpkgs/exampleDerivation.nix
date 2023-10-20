@@ -2,11 +2,9 @@ let
     pkgs = import <nixpkgs> {};
 in
     pkgs.stdenv.mkDerivation {
-        name = "my_mkDerivation";
-
+        name = "my-mkderivation";
         src = ./.;
-
         installPhase = ''
-            echo HelloMkDerivation > $out
+            echo Test > $out
         '';
     }
