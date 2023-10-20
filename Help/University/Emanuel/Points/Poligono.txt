@@ -1,0 +1,143 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+
+#define RAND 200
+
+typedef struct Point {
+    float x;
+    float y;
+    float a;
+}Point;
+
+void Mostrar(Point *ponto, int size){
+  printf("%c%7c%c%7c%c%7c%c\n", 'X', ' ', 'Y', ' ', 'A', ' ', 'D');
+  for(int i = 0; i < size; i++){
+    printf("for: %07.2f  %07.2f %07.2f\n", ponto[i].x, ponto[i].y, ponto[i].a);
+  }
+}
+
+void Preencher(Point **ponto, int size){
+  int sinal = 0;
+  for(int i = 0; i < size; i++){
+      sinal = rand()%2;
+      if(sinal == 0) sinal = -1;
+        (*ponto)[i].x = sinal * (rand() % RAND);
+        (*ponto)[i].y = sinal * (rand() % RAND);
+        (*ponto)[i].a = 0;
+         // while(ponto[i].x == 0 && ponto[i].y == 0){
+         // ponto[i].x = sinal*(rand()%RAND);
+         // ponto[i].y = sinal*(rand()%RAND);
+         // ponto[i].a = 0;
+    //}
+    printf("for: %07.2f  %07.2f %07.2f\n", (*ponto)[i].x, (*ponto)[i].y, (*ponto)[i].a);
+  }
+    //Mostrar(ponto, size);
+    
+  printf("1: (%f,%f) 2: (%f,%f)", (*ponto)[3].x, (*ponto)[3].y, (*ponto)[4].x, (*ponto)[4].y); 
+}
+
+
+/*int Dir(float *VetA, float *VetB){
+  float dir = VetA[1] * VetB[0] - VetA[0] * VetB[1];
+  if (dir < 0) dir = -1;
+  else if(dir > 0) dir = 1;
+       else dir = 0;
+  return dir;
+}
+
+float Angulo(float *VetA, float *VetB){
+  float ProdEsc = VetA[0] * VetB[0] + VetA[1] * VetB[1];
+  float Dist1 = sqrt(pow(VetA[0],2) + pow(VetA[1],2));
+  float Dist2 = sqrt(pow(VetB[0],2) + pow(VetB[1],2));
+  float algo = ProdEsc / (Dist1 * Dist2);
+  float CosRad = acos(algo);
+  //printf("\n\n\nVetA0: %f\nVetA1: %f\nVetB0: %f\nVetB1: %f\nProdEsc: %f\nDist1: %f\nDist2: %f\nAlgo: %f\nCosRad: %f\n\n",VetA[0], VetA[1], VetB[0], VetB[1], ProdEsc, Dist1, Dist2, algo, CosRad);
+  return CosRad * 180.0 / M_PI;
+}
+
+void troca(float *a, float *b, int qc) {
+    for(int i = 0; i < qc; i++){
+      float temp = a[i];
+      a[i] = b[i];
+      b[i] = temp;
+    }
+}
+
+void ConvDir(float **matriz, int size){
+  for(int i = 0; i < size; i++){
+    if(matriz[i][3] > 0){
+      matriz[i][2] = 360 - matriz[i][2];
+      matriz[i][3] = -1;
+    }
+  }
+}
+
+void OrgAng(float **matriz, int size, float qc){
+    for(int j = 0; j< size; j++){
+    for(int i = 0; i < size - 1; i++){
+      if (matriz[i][2] > matriz[i+1][2]){
+        troca(matriz[i],matriz[i+1], qc);
+      }
+    }
+  }
+}
+
+
+void Uniao(float **matriz, int size){
+ for(int i = 0; i < size; i++){
+   float v1 = matriz[(i)%size][0];
+   float v2 = matriz[(i+1)%size][0];
+   float v3 = matriz[(i)%size][1];
+   float v4 = matriz[(i+1)%size][1];
+   printf("(%f, %f)\n",v2-v1, v4-v3);
+ }
+}*/
+
+Point* CriarVetor(int size){
+    Point* ponto = (Point*)malloc(size * sizeof(Point));
+    for (int  i = 0; i < size; i++) {
+        ponto[i].x = 0.0;
+        ponto[i].y = 0.0;
+        ponto[i].a = 0.0;
+    }
+    return ponto;
+}
+
+int main(){
+  float T = 0;
+  //Point *ponto = (Point*)malloc(T * sizeof(Point));
+
+  srand(time(0));
+
+  printf("Informe a quantidade de Vetores: ");
+  scanf("%f", &T);
+  
+    Point* ponto;
+  ponto = CriarVetor(T);
+
+  Preencher(&ponto, T);
+  printf("\n\n");
+  Mostrar(ponto, T);
+
+  printf("1: (%f,%f) 2: (%f,%f)", ponto[3].x, ponto[3].y, ponto[4].x, ponto[4].y); 
+
+  /*printf("\nCalculando Angulo e direção\n");
+  for(int i = 0; i < T; i++){
+      matriz[i][2] = Angulo(VetRef,matriz[i]);
+      matriz[i][3] = Dir(VetRef,matriz[i]);
+  }
+  MostrarMatriz(matriz, qc, T);
+
+  ConvDir(matriz, T);
+  printf("\nDepois de converter os angulos: \n");
+  MostrarMatriz(matriz, qc, T);
+
+  OrgAng(matriz, T, qc);
+  printf("\nDepois de organizar angulo: \n");
+  MostrarMatriz(matriz, qc, T);
+
+  Uniao(matriz, T);*/
+  return 0;
+}
