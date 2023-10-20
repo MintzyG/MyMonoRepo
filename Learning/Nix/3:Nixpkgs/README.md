@@ -116,18 +116,18 @@ so lets pass some arguments
 builtins.derivation{
   name = "my-derivation";
 
-  # specify the systems our package runs in
-  # you can find systems in the repl by
-  # setting a variable for nixpkgs
-  # doing "pkgs.lib.platforms" and hitting enter
-  # to just get the names from these atribute sets do
-  # "builtins.attrNames pkgs.lib.platforms" and hit enter
+  specify the systems our package runs in
+  you can find systems in the repl by
+  setting a variable for nixpkgs
+  doing "pkgs.lib.platforms" and hitting enter
+  to just get the names from these atribute sets do
+  "builtins.attrNames pkgs.lib.platforms" and hit enter
   system = "x86_64-linux";
 
-  # program tha we will execute to make our package
+  program tha we will execute to make our package
   builder = "/bin/sh";
 
-  # specify args passed to the builder
+  specify args passed to the builder
   args = [ "-c" "echo Hello > $out"];
 }
 
@@ -169,18 +169,18 @@ pkgs.stdenv.mkDerivation {};
 this is way more orchestrated than builtins.derivation, since it works around phases of a build and other stuff
 
 let
-  pkgs = import <nixpkgs> {};
+    pkgs = import <nixpkgs> {};
 in
-  pkgs.stdenv.mkDerivation {
-    name = "my_derivation";
+    pkgs.stdenv.mkDerivation {
+        name = "my_mkDerivation";
 
-    # mkDerivation requires a source of some kind
-    src = ./.;
+        mkDerivation requires a source of some kind
+        src = ./.;
 
-    installPhase = ''
-      echo HelloMkDerivation > $out
-    '';
-  }
+        installPhase = ''
+            echo HelloMkDerivation > $out
+        '';
+    }
 
 the reason why you wouldn't use build derivation directly is because it requires a lot of setup
 mkDerivation wrap the derivation function to do all of the busy work for you

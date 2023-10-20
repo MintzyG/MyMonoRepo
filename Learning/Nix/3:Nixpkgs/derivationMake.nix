@@ -1,9 +1,12 @@
-{pkgs, ...}:
+let
+    pkgs = import <nixpkgs> {};
+in
+    pkgs.stdenv.mkDerivation {
+        name = "my_mkDerivation";
 
-pkgs.stdenv.mkDerivation {
-    name = "My_Derivation";
-    src = ./.;
-    installPhase = ''
-      echo HelloMkDerivation > $out
-    '';
-}
+        src = ./.;
+
+        installPhase = ''
+            echo HelloMkDerivation > $out
+        '';
+    }
