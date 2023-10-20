@@ -169,18 +169,18 @@ pkgs.stdenv.mkDerivation {};
 this is way more orchestrated than builtins.derivation, since it works around phases of a build and other stuff
 
 let
-    pkgs = import <nixpkgs> {};
+ pkgs = import <nixpkgs> {};
 in
-    pkgs.stdenv.mkDerivation {
-        name = "my_mkDerivation";
+ pkgs.stdenv.mkDerivation {
+  name = "my_mkDerivation";
 
-        mkDerivation requires a source of some kind
-        src = ./.;
+  mkDerivation requires a source of some kind
+  src = ./.;
 
-        installPhase = ''
-            echo HelloMkDerivation > $out
-        '';
-    }
+  installPhase = ''
+   echo HelloMkDerivation > $out
+  '';
+}
 
 the reason why you wouldn't use build derivation directly is because it requires a lot of setup
 mkDerivation wrap the derivation function to do all of the busy work for you
