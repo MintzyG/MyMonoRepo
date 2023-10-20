@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 // ProdVet
 // VecRes = <A, B>
@@ -25,6 +26,7 @@ void ShowPoints(Ponto* ponto, int size){
         printf("%7.2f\t", ponto[i].ang);
         printf("%7.2f\n", ponto[i].dir);
     }
+    printf("\n");
 }
 
 void CreatePoints(Ponto* ponto, int size){
@@ -56,6 +58,18 @@ void PrintPonto(Ponto ponto){
 }
 */
 
+void CalcularAngulos(Ponto* ponto, int size){
+    for (int i = 1; i < size; i++) {
+        float produto_escalar = ponto[1].x * ponto[i].x +
+                                ponto[1].y * ponto[i].y;
+        float distancia_um = sqrt(pow(ponto[1].x, 2) + pow(ponto[1].y, 2));
+        float distancia_dois = sqrt(pow(ponto[i].x, 2) + pow(ponto[i].y, 2));
+        float cosseno_radianos = acos(produto_escalar / (distancia_um * distancia_dois));
+        ponto[i].ang = cosseno_radianos * 180.0 / M_PI;
+
+    }
+}
+
 int main() {
     srand(time(NULL));
 
@@ -72,6 +86,7 @@ int main() {
     CreatePoints(vetor_pontos, size);
     printf("Your points: \n");
     ShowPoints(vetor_pontos, size);
-    
+    CalcularAngulos(vetor_pontos, size);
+    ShowPoints(vetor_pontos, size);
     return 0;
 }
