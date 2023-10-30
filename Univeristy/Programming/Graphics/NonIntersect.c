@@ -195,7 +195,7 @@ void VerificarColisao(Ponto* vetores, int size){
 
     for (int i = 0; i < size; i++)
 	for (int j = i; j < size; j++){
-	    if (i != j && ( i != 0 && j != size))
+	    if (i != j && (i != 0 && j != size) && (j != i + 1))
 		colisao = VerificarInterseccao(vetores[i], vetores[j], &p_x, &p_y);
 	    if (colisao == 1){
 		printf("Os vetores %d e %d tiveram intersecao em %f e %f\n", i, j, p_x, p_y);
