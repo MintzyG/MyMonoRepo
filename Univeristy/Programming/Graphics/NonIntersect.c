@@ -89,13 +89,11 @@ void CalcularAngulos(Ponto* ponto, int size){
         float distancia_um = sqrt(pow(ponto[0].x, 2) + pow(ponto[0].y, 2));
         float distancia_dois = sqrt(pow(ponto[i].x, 2) + pow(ponto[i].y, 2));
         float proj = produto_escalar / (distancia_um * distancia_dois);
-        //printf("\n%f", proj);
         if (proj < -1) proj = 0;
         if (proj > 1) proj = 1;
         float cosseno_radianos = acos((proj));
         float ang = cosseno_radianos * 180.0 / M_PI;
         ponto[i].ang = ang;
-        //printf("\nPonto (%f,%f): PE:%f D1:%f d2:%f PJ:%f CR:%f A:%f", ponto[i].x, ponto[i].y, produto_escalar, distancia_um, distancia_dois, proj, cosseno_radianos, ang);
     }
 }
 
@@ -204,7 +202,7 @@ void VerificarColisao(Ponto* vetores, int size){
 		CNC += 1;
 	    colisao = 0;
 	}
-    printf("\n%d pares de vetores colidiram, %d pares de vetores nao colidiram\n\n", CC, CNC);
+    printf("\n%d pares de vetores tiveram interseccao de %d possiveis testes\n\n", CC, CNC+CC);
 
 }
 
@@ -241,6 +239,7 @@ int main() {
     VerificarColisao(vetores, size);
 
     // Organiza os vetores
+    printf("\nDepois de orgazinizar: \n");
     SortByAngle(vetor_pontos, size);
     ShowPoints(vetor_pontos, size);
     vetores = ConectarPontos(vetor_pontos, size);
