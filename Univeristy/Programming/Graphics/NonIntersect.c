@@ -245,12 +245,8 @@ float CalcularArea(Ponto* ponto, int size) {
 	float area = 0;
 	for (int i = 0; i < size; i++){
 		float angulo = CalcularAngulo(ponto[i], ponto[(i+1)%size]);
-		printf("AN:%f\n", angulo);
-		printf("D:%f %f\n", ponto[i].dist, ponto[(i+1)].dist); 
 		angulo = angulo * (M_PI / 180.0);
-		printf("AP:%f\n", fabs((ponto[i].dist * ponto[(i+1)%size].dist * (sin(angulo))) / 2));
 		area += (ponto[i].dist * ponto[(i+1)%size].dist * (sin(angulo))) / 2;
-		printf("AF:%f\n", area);
 	}
 	printf("\n");
 	return area;
