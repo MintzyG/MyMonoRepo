@@ -3,17 +3,6 @@
 #include <time.h>
 #include <math.h>
 
-// ProdVet
-// VecRes = <A, B>
-// A = (x, y, z)
-// B = (a, b, c)
-// VecRes(yc-zb, xc-za, xb-ya)
-
-// ProdEsca
-// Som i>n (XiAi)
-
-// CosTheta = Esc(A,B)/|A|*|B|
-
 #define RAND 200
 
 typedef struct Ponto {
@@ -83,6 +72,18 @@ void CalcularDirecao(Ponto* ponto, int size){
     }
 }
 
+float CalcularAngulo(Ponto ponto_um, Ponto ponto_dois) {
+    float produto_escalar = ponto_um.x * ponto_dois.x + ponto_um.y * ponto_dois.y;
+    float distancia_um = sqrt(pow(ponto_um.x, 2) + pow(ponto_um.y, 2));
+    float distancia_dois = sqrt(pow(ponto_dois.x, 2) + pow(ponto_dois.y, 2));
+    float proj = produto_escalar / (distancia_um * distancia_dois);
+    if (proj < -1) proj = 0;
+    if (proj > 1) proj = 1;
+    float cosseno_radianos = acos((proj));
+    float ang = cosseno_radianos * 180.0 / M_PI;
+	return ang;
+}
+
 void CalcularAngulos(Ponto* ponto, int size){
     for (int i = 1; i < size; i++) {
         float produto_escalar = ponto[0].x * ponto[i].x + ponto[0].y * ponto[i].y;
@@ -138,10 +139,30 @@ void SortByAngle(Ponto* ponto, int size) {
         }
 }
 
-void CalcularDistancia(Ponto* ponto, int size){
-    for (int i = 0; i < size; i++) {
-        ponto[i].dist = sqrt(pow(ponto[i].x, 2) + pow(ponto[i].y, 2));
-    }
+void CalcularDistancia(Ponto* ponto, int size, float x, float y){
+    int cat_a = 0, cat_b = 0, hip = 0;
+	if (ponto[0].is_vector == 1) {
+		for (int i = 0; i < size; i++) {
+			cat_a = ponto[i].e_x - ponto[i].s_x;
+			cat_b = ponto[i].e_y - ponto[i].s_y;
+			hip = pow(cat_a, 2) + pow(cat_b, 2);
+			ponto[i].dist = sqrt(hip);
+		}
+		return;
+	}
+
+	if (x == 0 && y == 0) {
+		for (int i = 0; i <	size; i++) {
+        	ponto[i].dist = sqrt(pow(ponto[i].x, 2) + pow(ponto[i].y, 2));
+    	}
+	} else {
+		for (int i = 0; i < size; i++) {
+			cat_a = ponto[i].x - x;
+			cat_b = ponto[i].y - y;
+			hip = pow(cat_a, 2) + pow(cat_b, 2);
+			ponto[i].dist = sqrt(hip);
+		}
+	}
 }
 
 Ponto* ConectarPontos(Ponto* ponto, int size) {
@@ -206,6 +227,42 @@ void VerificarColisao(Ponto* vetores, int size){
 
 }
 
+Ponto CalcularNovaOrigem(Ponto* ponto, int size) {
+	Ponto nova_origem;
+	float tmp_x = 0, tmp_y = 0;
+	for (int i = 0; i < size; i++){
+		tmp_x += ponto[i].x;
+		tmp_y += ponto[i].y;
+	}
+	
+	nova_origem.x = tmp_x/size;
+	nova_origem.y = tmp_y/size;
+
+	return nova_origem;
+} 
+
+float CalcularArea(Ponto* ponto, int size) {
+	float area = 0;
+	for (int i = 0; i < size; i++){
+		float angulo = CalcularAngulo(ponto[i], ponto[(i+1)%size]);
+		printf("AN:%f\n", angulo);
+		printf("D:%f %f\n", ponto[i].dist, ponto[(i+1)].dist); 
+		angulo = angulo * (M_PI / 180.0);
+		printf("AP:%f\n", fabs((ponto[i].dist * ponto[(i+1)%size].dist * (sin(angulo))) / 2));
+		area += (ponto[i].dist * ponto[(i+1)%size].dist * (sin(angulo))) / 2;
+		printf("AF:%f\n", area);
+	}
+	printf("\n");
+	return area;
+}
+
+void TransladarPontos(Ponto* ponto, Ponto n_origem, int size){
+	for (int i = 0; i < size; i++){
+		ponto[i].x -= n_origem.x;
+		ponto[i].y -= n_origem.y;
+	}
+}
+
 int main() {
     srand(time(NULL));
 
@@ -216,36 +273,45 @@ int main() {
 
     printf("How many points: ");
     scanf("%d", &size);
-    Ponto* vetor_pontos = (Ponto*)malloc(size * sizeof(Ponto));
+    Ponto* pontos = (Ponto*)malloc(size * sizeof(Ponto));
     Ponto* vetores = (Ponto*)malloc(size * sizeof(Ponto));
 
     // Gera os pontos iniciais
-    CreatePoints(vetor_pontos, size);
-    printf("Your points: \n");
-    ShowPoints(vetor_pontos, size);
-
-    // Remove duplicatas e múltiplos
-    // Realiza cálculos e padroniza os vetores
-    ConsertaSimilar(vetor_pontos, size);
-    CalcularDistancia(vetor_pontos, size);
-    CalcularAngulos(vetor_pontos, size);
-    CalcularDirecao(vetor_pontos, size);
-    AdjustDirection(vetor_pontos, size);
+    CreatePoints(pontos, size);
+	printf("Your points: \n");
+    ShowPoints(pontos, size);
+	Ponto nova_origem = CalcularNovaOrigem(pontos, size);
+    TransladarPontos(pontos, nova_origem, size);
+	printf("Your translated points: \n");
+    ShowPoints(pontos, size);
+	
+    // Remove duplicatas e múltiplos e padroniza os vetores
+    ConsertaSimilar(pontos, size);
+    CalcularDistancia(pontos, size, 0, 0);
+    CalcularAngulos(pontos, size);
+    CalcularDirecao(pontos, size);
+    AdjustDirection(pontos, size);
    
     // Cria os vetores a partir dos postos desorganizados
-    vetores = ConectarPontos(vetor_pontos, size);
+    vetores = ConectarPontos(pontos, size);
     printf("Vetores:\n");
     ShowPoints(vetores, size);
     VerificarColisao(vetores, size);
 
     // Organiza os vetores
     printf("\nDepois de orgazinizar: \n");
-    SortByAngle(vetor_pontos, size);
-    ShowPoints(vetor_pontos, size);
-    vetores = ConectarPontos(vetor_pontos, size);
+    SortByAngle(pontos, size);
+    ShowPoints(pontos, size);
+    vetores = ConectarPontos(pontos, size);
+	CalcularDistancia(vetores, size, 0, 0);
     printf("Vetores: vet X = (pX+1)%%size - (pX)%%size\n");
     ShowPoints(vetores, size);
     VerificarColisao(vetores, size);
+	printf("\nNova origem: (%f, %f)\n", nova_origem.x, nova_origem.y);
+    CalcularDistancia(pontos, size, 0, 0);
+    ShowPoints(pontos, size);
+	float area = CalcularArea(pontos, size);
+	printf("Area: %f", area);
 
     return 0;
 }
