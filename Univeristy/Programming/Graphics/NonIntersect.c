@@ -299,13 +299,12 @@ int main() {
     SortByAngle(pontos, size);
     ShowPoints(pontos, size);
     vetores = ConectarPontos(pontos, size);
-	CalcularDistancia(vetores, size, 0, 0);
+	// CalcularDistancia(vetores, size, 0, 0);
     printf("Vetores: vet X = (pX+1)%%size - (pX)%%size\n");
     ShowPoints(vetores, size);
     VerificarColisao(vetores, size);
 	printf("\nNova origem: (%f, %f)\n", nova_origem.x, nova_origem.y);
-    CalcularDistancia(pontos, size, 0, 0);
-    ShowPoints(pontos, size);
+    // CalcularDistancia(pontos, size, 0, 0);
 	float area = CalcularArea(pontos, size);
 	printf("Area: %f", area);
 

@@ -16,7 +16,7 @@ int main() {
 
 	FILE *arquivo;
 	Vector text;
-	text.size = 1;
+	text.size = 256;
 	arquivo = fopen("text.txt", "r");
 	if(!arquivo) {
 		printf("Couldn't open file");
@@ -24,50 +24,54 @@ int main() {
 	}
 	
 	text.letras = (Element*)malloc(text.size * sizeof(Element));
+	for (int i = 0; i < text.size; i++) text.letras[i].amount = 0;
 
 	char letra;
-	int added = 0;
+	int added = 0, found = 0, position = 0;
 
 	while((letra = fgetc(arquivo)) != EOF){
-
-		Vector tmp;
-			
-		int found = 0;
-		int position;
-
+		// printf("%c", letra);
 		if (added == 0) {
 			text.letras[0].letra = letra;
+			text.letras[0].amount += 1;
 			added += 1;
 		} else {
-			for (int i = 0; i < text.size; i++){
+			for (int i = 0; i < added; i++){
 				if (text.letras[i].letra == letra){
 					found = 1;
 					position = i;
 				}
 			}
-			if (found != 1){
-				if (text.size == added){
-					tmp.letras = (Element*)realloc(&text, text.size * sizeof(Element));
-					tmp.letras = memcpy(&tmp.letras, &text.letras, text.size);
-					text.size *= 2;
-					text.letras[added+1].letra = letra;
-					text.letras[position].amount += 1;
-					added += 1;
-				} else {
-					text.letras[added+1].letra = letra;
-					text.letras[position].amount += 1;
-					added += 1;
-				}
-			} else {
+			if (found == 1){
 				text.letras[position].letra = letra;
 				text.letras[position].amount += 1;
+				found = 0;
+			} else {
+				text.letras[added+1].letra = letra;
+				text.letras[added+1].amount += 1;
+				added += 1;
 			}
-		}
+		}	
 	}
-	
+
 	fclose(arquivo);
 
+	// Print before organizing
+	// for (int i = 0; i < text.size; i++){
+	// 	if (text.letras[i].amount != 0)
+	// 	printf("%c aparece %d vezes\n", text.letras[i].letra, text.letras[i].amount);
+	// }
+
+	for (int i = 0; i < text.size - 1; i++)
+		for (int j = 0; j < text.size - i; j++)
+			if (text.letras[j].amount < text.letras[j+1].amount){
+				Element tmp = text.letras[j];
+				text.letras[j] = text.letras[j+1];
+				text.letras[j+1] = tmp;
+			}
+
 	for (int i = 0; i < text.size; i++){
+		if (text.letras[i].amount != 0)
 		printf("%c aparece %d vezes\n", text.letras[i].letra, text.letras[i].amount);
 	}
 
