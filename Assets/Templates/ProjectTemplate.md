@@ -1,8 +1,15 @@
-Why this exists:
+## Why this exists:
 
-What did it ask/What did I do?
+- Content
 
-What did I learn?
+## What did it ask/What did I do?
 
-What do I think of this after?
+- Content
+  
+## What did I learn?
 
+- Content
+  
+## What do I think of this after?
+
+- Content
