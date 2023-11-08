@@ -14,4 +14,6 @@
 
 ## Image
 
+| Generated solid |
+:-----------------:
 ![](https://raw.githubusercontent.com/MintzyG/MyMonoRepo/master/Univeristy/Programming/Graphics/Polygon/example1.png)
