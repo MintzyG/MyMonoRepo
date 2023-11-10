@@ -10,24 +10,23 @@
 typedef struct Ponto {
     float x, y;
     float ang, dir, dist;
-    int is_vector;
+    // int is_vector;
     // float s_x, s_y, e_x, e_y;
 } Ponto;
 
-void ShowPoints(Ponto* ponto, int size){
-    for (int i = 0; i < size; i++){
-        printf("%d = (%7.2f, ", i, ponto[i].x);
-        printf("%7.2f)\t", ponto[i].y);
-        printf("A:%7.2f\t", ponto[i].ang);
-        printf("DR:%7.2f\t", ponto[i].dir);
-        printf("DS:%7.2f\n", ponto[i].dist);
-    }
-    printf("\n");
-}
+// void ShowPoints(Ponto* ponto, int size){
+//     for (int i = 0; i < size; i++){
+//         printf("%d = (%7.2f, ", i, ponto[i].x);
+//         printf("%7.2f)\t", ponto[i].y);
+//         printf("A:%7.2f\t", ponto[i].ang);
+//         printf("DR:%7.2f\t", ponto[i].dir);
+//         printf("DS:%7.2f\n", ponto[i].dist);
+//     }
+//     printf("\n");
+// }
 
 Ponto CreatePoint(Ponto ponto){
     int sign1 = 0, sign2 = 0;
-    while(1){
         sign1 = rand() % 2;
         if (sign1 == 0) 
             sign1 = -1;
@@ -36,11 +35,6 @@ Ponto CreatePoint(Ponto ponto){
             sign2 = -1;
         ponto.x = sign1 * (float)(((double)rand()/(double)(RAND_MAX)) * RAND); 
         ponto.y = sign2 * (float)(((double)rand()/(double)(RAND_MAX)) * RAND); 
-        if (ponto.x == 0 && ponto.y == 0){
-            continue;
-        }
-        break;
-    }
     return ponto;
 }
 
@@ -48,36 +42,32 @@ void CreatePoints(Ponto* ponto, int size){
     for (int i = 0; i < size; i++) ponto[i] = CreatePoint(ponto[i]);
 }
 
-void Init(Ponto* ponto){
-    ponto->x = 1;
-    ponto->y = 1;
-    ponto->ang = 1;
-    ponto->dir = 1;
-}
+// void Init(Ponto* ponto){
+//     ponto->x = 1;
+//     ponto->y = 1;
+//     ponto->ang = 1;
+//     ponto->dir = 1;
+// }
 
-void PrintPonto(Ponto ponto){
-    printf("X: %f\tY: %f\tAng: %f\tDir: %f\n", 
-            ponto.x,
-            ponto.y,
-            ponto.ang,
-            ponto.dir);
-}
+// void PrintPonto(Ponto ponto){
+//     printf("X: %f\tY: %f\tAng: %f\tDir: %f\n", 
+//             ponto.x,
+//             ponto.y,
+//             ponto.ang,
+//             ponto.dir);
+// }
 
 void CalcularDirecao(Ponto* ponto, int size){
     for (int i = 1; i < size; i++) {
-        float dir = ponto[0].x * ponto[i].y - ponto[0].y * ponto[i].x;
-        if (dir != 0){
-            dir = dir / fabs(dir);
-            ponto[i].dir = dir;
-        } else
-            ponto[i].dir = 0;
+        ponto[i].dir = ponto[0].x * ponto[i].y - ponto[0].y * ponto[i].x;
     }
 }
 
-float CalcularAngulo(Ponto ponto_um, Ponto ponto_dois) {
-    float produto_escalar = ponto_um.x * ponto_dois.x + ponto_um.y * ponto_dois.y;
+float CalcularAngulo(Ponto ponto_um, Ponto *ponto_dois) {
+    float produto_escalar = ponto_um.x * ponto_dois->x + ponto_um.y * ponto_dois->y;
     float distancia_um = sqrt(pow(ponto_um.x, 2) + pow(ponto_um.y, 2));
-    float distancia_dois = sqrt(pow(ponto_dois.x, 2) + pow(ponto_dois.y, 2));
+    float distancia_dois = sqrt(pow(ponto_dois->x, 2) + pow(ponto_dois->y, 2));
+	ponto_dois->dist = distancia_dois; 
     float proj = produto_escalar / (distancia_um * distancia_dois);
     if (proj < -1) proj = 0;
     if (proj > 1) proj = 1;
@@ -88,7 +78,7 @@ float CalcularAngulo(Ponto ponto_um, Ponto ponto_dois) {
 
 void CalcularAngulos(Ponto* ponto, int size){
     for (int i = 1; i < size; i++) {
-		ponto[i].ang = CalcularAngulo(ponto[0], ponto[i]);
+		ponto[i].ang = CalcularAngulo(ponto[0], &ponto[i]);
 
         // float produto_escalar = ponto[0].x * ponto[i].x + ponto[0].y * ponto[i].y;
         // float distancia_um = sqrt(pow(ponto[0].x, 2) + pow(ponto[0].y, 2));
@@ -102,26 +92,26 @@ void CalcularAngulos(Ponto* ponto, int size){
     }
 }
 
-void ConsertaSimilar(Ponto* ponto, int size) {
-    int fabs1, fabs2, fabr1, fabr2;
-    fabr1 = fabs(ponto[0].x);
-    fabr2 = fabs(ponto[0].y);
-    for (int i = 1; i < size; i++){
-        fabs1 = fabs(ponto[i].x);
-        fabs2 = fabs(ponto[i].y);
-        if (fabr1 == fabs1 && fabr2 == fabs2){
-            if((ponto[0].x == ponto[i].x) && (ponto[0].y == ponto[i].y))
-                // printf("\nWas: ");
-            // PrintPonto(ponto[i]);
-            if((ponto[0].x == ponto[i].x) && (ponto[0].y == ponto[i].y)){
-                // printf("Now: ");
-                ponto[i] = CreatePoint(ponto[i]);
-                // PrintPonto(ponto[i]);
-                // printf("\n");
-            }
-        }
-    }
-}
+// void ConsertaSimilar(Ponto* ponto, int size) {
+//     int fabs1, fabs2, fabr1, fabr2;
+//     fabr1 = fabs(ponto[0].x);
+//     fabr2 = fabs(ponto[0].y);
+//     for (int i = 1; i < size; i++){
+//         fabs1 = fabs(ponto[i].x);
+//         fabs2 = fabs(ponto[i].y);
+//         if (fabr1 == fabs1 && fabr2 == fabs2){
+//             if((ponto[0].x == ponto[i].x) && (ponto[0].y == ponto[i].y))
+//                 // printf("\nWas: ");
+//             // PrintPonto(ponto[i]);
+//             if((ponto[0].x == ponto[i].x) && (ponto[0].y == ponto[i].y)){
+//                 // printf("Now: ");
+//                 ponto[i] = CreatePoint(ponto[i]);
+//                 // PrintPonto(ponto[i]);
+//                 // printf("\n");
+//             }
+//         }
+//     }
+// }
 
 void AdjustDirection(Ponto* ponto, int size) {
     for (int i = 0; i < size; i++)
@@ -131,20 +121,48 @@ void AdjustDirection(Ponto* ponto, int size) {
         }
 }
 
-void SortByAngle(Ponto* ponto, int size) {
-    Ponto tmp;
-    for (int i = 0; i < size; i++)
-        for (int j = 0; j < size - 1; j++){
-            if (ponto[j].ang > ponto[j + 1].ang){
-                tmp = ponto[j + 1];
-                ponto[j + 1] = ponto[j];
-                ponto[j] = tmp;
-            }
+	void Swap(Ponto* ponto, int index_a, int index_b){
+		Ponto tmp;
+		tmp = ponto[index_a];
+		ponto[index_a] = ponto[index_b];
+		ponto[index_b] = tmp;
+	}
+
+void QuickSort(Ponto* ponto, int first, int last) {
+	if (last - first < 2)
+    	return;
+  
+    int pivot = ponto[first].ang;
+    int pointer_b = last - 1;
+    int swap_marker = last;
+    
+    for (int i = pointer_b; i >= first; i--) {
+        if (ponto[i].ang >= pivot) {
+            swap_marker--; 
+            if (i < swap_marker)
+                Swap(ponto, i, swap_marker);
         }
+	}
+
+	QuickSort(ponto, first, swap_marker);
+    QuickSort(ponto, swap_marker+1, last);
+
 }
 
-void CalcularDistancia(Ponto* ponto, int size, float x, float y){
-    int cat_a = 0, cat_b = 0, hip = 0;
+// void SortByAngle(Ponto* ponto, int size) {
+//     Ponto tmp;
+//     for (int i = 0; i < size; i++)
+//         for (int j = 0; j < size - 1; j++){
+//             if (ponto[j].ang > ponto[j + 1].ang){
+//                 tmp = ponto[j + 1];
+//                 ponto[j + 1] = ponto[j];
+//                 ponto[j] = tmp;
+//             }
+//         }
+// }
+
+void CalcularDistancia(Ponto* ponto, int size/*, float x, float y*/){
+    // int cat_a = 0, cat_b = 0, hip = 0;
 	// if (ponto[0].is_vector == 1) {
 	// 	for (int i = 0; i < size; i++) {
 	// 		cat_a = ponto[i].e_x - ponto[i].s_x;
@@ -155,18 +173,18 @@ void CalcularDistancia(Ponto* ponto, int size, float x, float y){
 	// 	return;
 	// }
 
-	if (x == 0 && y == 0) {
+	// if (x == 0 && y == 0) {
 		for (int i = 0; i <	size; i++) {
         	ponto[i].dist = sqrt(pow(ponto[i].x, 2) + pow(ponto[i].y, 2));
     	}
-	} else {
-		for (int i = 0; i < size; i++) {
-			cat_a = ponto[i].x - x;
-			cat_b = ponto[i].y - y;
-			hip = pow(cat_a, 2) + pow(cat_b, 2);
-			ponto[i].dist = sqrt(hip);
-		}
-	}
+	// } 
+	// else {
+		// for (int i = 0; i < size; i++) {
+		// 	cat_a = ponto[i].x - x;
+		// 	cat_b = ponto[i].y - y;
+		// 	hip = pow(cat_a, 2) + pow(cat_b, 2);
+		// 	ponto[i].dist = sqrt(hip);
+		// }
 }
 
 // Ponto* ConectarPontos(Ponto* ponto, int size) {
@@ -246,9 +264,13 @@ Ponto CalcularNovaOrigem(Ponto* ponto, int size) {
 } 
 
 float CalcularArea(Ponto* ponto, int size) {
-	float area = 0;
+	float area = 0, angulo = 0;
 	for (int i = 0; i < size; i++){
-		float angulo = CalcularAngulo(ponto[i], ponto[(i+1)%size]);
+		// float angulo = CalcularAngulo(ponto[i], ponto[(i+1)%size]);
+		if ((i + 1) != size)
+			angulo = ponto[i + 1].ang - ponto[i].ang;
+		else 
+			angulo = 360.0 - ponto[i].ang + ponto[i + 1].ang;
 		angulo = angulo * (M_PI / 180.0);
 		area += (ponto[i].dist * ponto[(i+1)%size].dist * (sin(angulo))) / 2;
 	}
@@ -285,10 +307,7 @@ int main(int argc, char** argv) {
 		}
 	}
 
-    srand(time(NULL));
-
-    Ponto ponto;
-    Init(&ponto);
+    srand(clock());
 
     // printf("How many points: ");
     // scanf("%d", &size);
@@ -306,7 +325,7 @@ int main(int argc, char** argv) {
 	
     // Remove duplicatas e múltiplos e padroniza os vetores
     // ConsertaSimilar(pontos, size);
-    CalcularDistancia(pontos, size, 0, 0);
+    // CalcularDistancia(pontos, size/*, 0, 0*/);
     CalcularAngulos(pontos, size);
     CalcularDirecao(pontos, size);
     AdjustDirection(pontos, size);
@@ -319,7 +338,8 @@ int main(int argc, char** argv) {
 
     // Organiza os vetores
     // printf("\nDepois de orgazinizar: \n");
-    SortByAngle(pontos, size);
+	QuickSort(pontos, 0, size);
+    // SortByAngle(pontos, size);
     // ShowPoints(pontos, size);
     // vetores = ConectarPontos(pontos, size);
 	// CalcularDistancia(vetores, size, 0, 0);

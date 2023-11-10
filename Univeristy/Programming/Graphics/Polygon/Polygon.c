@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <errno.h>
+#include <inttypes.h>
 
 #define RAND 200
 
@@ -107,13 +109,13 @@ void ConsertaSimilar(Ponto* ponto, int size) {
         fabs2 = fabs(ponto[i].y);
         if (fabr1 == fabs1 && fabr2 == fabs2){
             if((ponto[0].x == ponto[i].x) && (ponto[0].y == ponto[i].y))
-                printf("\nWas: ");
-            PrintPonto(ponto[i]);
+                // printf("\nWas: ");
+            // PrintPonto(ponto[i]);
             if((ponto[0].x == ponto[i].x) && (ponto[0].y == ponto[i].y)){
-                printf("Now: ");
+                // printf("Now: ");
                 ponto[i] = CreatePoint(ponto[i]);
-                PrintPonto(ponto[i]);
-                printf("\n");
+                // PrintPonto(ponto[i]);
+                // printf("\n");
             }
         }
     }
@@ -217,13 +219,13 @@ void VerificarColisao(Ponto* vetores, int size){
 	    if (i != j && (i != 0 && j != size) && (j != i + 1))
 		colisao = VerificarInterseccao(vetores[i], vetores[j], &p_x, &p_y);
 	    if (colisao == 1){
-		printf("Os vetores %d e %d tiveram intersecao em %f e %f\n", i, j, p_x, p_y);
+		// printf("Os vetores %d e %d tiveram intersecao em %f e %f\n", i, j, p_x, p_y);
 	    	CC += 1;
 	    }else
 		CNC += 1;
 	    colisao = 0;
 	}
-    printf("\n%d pares de vetores tiveram interseccao de %d possiveis testes\n\n", CC, CNC+CC);
+    // printf("\n%d pares de vetores tiveram interseccao de %d possiveis testes\n\n", CC, CNC+CC);
 
 }
 
@@ -248,7 +250,7 @@ float CalcularArea(Ponto* ponto, int size) {
 		angulo = angulo * (M_PI / 180.0);
 		area += (ponto[i].dist * ponto[(i+1)%size].dist * (sin(angulo))) / 2;
 	}
-	printf("\n");
+	// printf("\n");
 	return area;
 }
 
@@ -259,27 +261,44 @@ void TransladarPontos(Ponto* ponto, Ponto n_origem, int size){
 	}
 }
 
-int main() {
+int main(int argc, char** argv) {
+
+	clock_t begin = clock();
+
+	intmax_t size = 0;
+
+	if (argc == 1) {
+		printf("No arguments provided");	
+		exit(-1);
+	} else if (argc > 2) {
+		printf("Too many arguments provided");
+		exit(-1);
+	} else {
+		intmax_t num = strtoimax(argv[1], NULL, 10);
+		if (num == INTMAX_MAX && errno == ERANGE){
+    		printf("Could not convert");
+			exit(-1);
+		} else {
+			size = num;
+		}
+	}
+
     srand(time(NULL));
 
     Ponto ponto;
     Init(&ponto);
 
-    int size;
-
-    printf("How many points: ");
-    scanf("%d", &size);
     Ponto* pontos = (Ponto*)malloc(size * sizeof(Ponto));
     Ponto* vetores = (Ponto*)malloc(size * sizeof(Ponto));
 
     // Gera os pontos iniciais
     CreatePoints(pontos, size);
-	printf("Your points: \n");
-    ShowPoints(pontos, size);
+	// printf("Your points: \n");
+    // ShowPoints(pontos, size);
 	Ponto nova_origem = CalcularNovaOrigem(pontos, size);
     TransladarPontos(pontos, nova_origem, size);
-	printf("Your translated points: \n");
-    ShowPoints(pontos, size);
+	// printf("Your translated points: \n");
+    // ShowPoints(pontos, size);
 	
     // Remove duplicatas e múltiplos e padroniza os vetores
     ConsertaSimilar(pontos, size);
@@ -290,22 +309,26 @@ int main() {
    
     // Cria os vetores a partir dos postos desorganizados
     vetores = ConectarPontos(pontos, size);
-    printf("Vetores:\n");
-    ShowPoints(vetores, size);
+    // printf("Vetores:\n");
+    // ShowPoints(vetores, size);
     VerificarColisao(vetores, size);
 
     // Organiza os vetores
-    printf("\nDepois de orgazinizar: \n");
+    // printf("\nDepois de orgazinizar: \n");
     SortByAngle(pontos, size);
-    ShowPoints(pontos, size);
+    // ShowPoints(pontos, size);
     vetores = ConectarPontos(pontos, size);
 	// CalcularDistancia(vetores, size, 0, 0);
-    printf("Vetores: vet X = (pX+1)%%size - (pX)%%size\n");
-    ShowPoints(vetores, size);
+    // printf("Vetores: vet X = (pX+1)%%size - (pX)%%size\n");
+    // ShowPoints(vetores, size);
     VerificarColisao(vetores, size);
-	printf("\nNova origem: (%f, %f)\n", nova_origem.x, nova_origem.y);
+	// printf("\nNova origem: (%f, %f)\n", nova_origem.x, nova_origem.y);
     // CalcularDistancia(pontos, size, 0, 0);
 	float area = CalcularArea(pontos, size);
+
+	clock_t end = clock();
+	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("Time spent: %f\n", time_spent);
 	printf("Area: %f", area);
 
     return 0;
