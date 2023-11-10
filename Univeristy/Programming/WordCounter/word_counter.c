@@ -30,7 +30,6 @@ int main() {
 	int added = 0, found = 0, position = 0;
 
 	while((letra = fgetc(arquivo)) != EOF){
-		// printf("%c", letra);
 		if (added == 0) {
 			text.letras[0].letra = letra;
 			text.letras[0].amount += 1;
@@ -55,12 +54,6 @@ int main() {
 	}
 
 	fclose(arquivo);
-
-	// Print before organizing
-	// for (int i = 0; i < text.size; i++){
-	// 	if (text.letras[i].amount != 0)
-	// 	printf("%c aparece %d vezes\n", text.letras[i].letra, text.letras[i].amount);
-	// }
 
 	for (int i = 0; i < text.size - 1; i++)
 		for (int j = 0; j < text.size - i; j++)
