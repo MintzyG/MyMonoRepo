@@ -46,14 +46,14 @@ void CreatePoints(Ponto* ponto, int size){
 
 void CalcularAngulos(Ponto* ponto, int size){
     for (int i = 1; i < size; i++) {
-		float dir = ponto[i].x * ponto[0].y - ponto[0].x * ponto[i].y;
-		float produto_escalar = ponto[0].x * ponto[i].x + ponto[0].y * ponto[i].y;
+		  float dir = ponto[i].x * ponto[0].y - ponto[0].x * ponto[i].y;
+		  float produto_escalar = ponto[0].x * ponto[i].x + ponto[0].y * ponto[i].y;
     	float distancia_um = sqrt(pow(ponto[0].x, 2) + pow(ponto[0].y, 2));
     	float distancia_dois = sqrt(pow(ponto[i].x, 2) + pow(ponto[i].y, 2));
-		ponto[i].dist = distancia_dois; 
+		  ponto[i].dist = distancia_dois; 
     	float proj = produto_escalar / (distancia_um * distancia_dois);
     	// Not the problem
-		if (proj < -1) proj = 0;
+		  if (proj < -1) proj = 0;
     	if (proj > 1) proj = 1;
     	float cosseno_radianos = acos((proj));
 		float ang = cosseno_radianos * 180.0 / M_PI;
@@ -118,8 +118,8 @@ int main(int argc, char** argv) {
 	} else {
 		intmax_t num = strtoimax(argv[1], NULL, 10);
 		if (num == INTMAX_MAX && errno == ERANGE){
-    		printf("Could not convert");
-			exit(-1);
+    	printf("Could not convert");
+      exit(-1);
 		} else {
 			size = num;
 		}

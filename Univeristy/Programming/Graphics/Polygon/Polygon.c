@@ -23,6 +23,7 @@ void ShowPoints(Ponto* ponto, int size){
         printf("DS:%7.2f\n", ponto[i].dist);
     }
     printf("\n");
+    
 }
 
 Ponto CreatePoint(Ponto ponto){
@@ -293,7 +294,7 @@ int main(int argc, char** argv) {
 
     // Gera os pontos iniciais
     CreatePoints(pontos, size);
-	// printf("Your points: \n");
+	  // printf("Your points: \n");
     // ShowPoints(pontos, size);
 	Ponto nova_origem = CalcularNovaOrigem(pontos, size);
     TransladarPontos(pontos, nova_origem, size);
