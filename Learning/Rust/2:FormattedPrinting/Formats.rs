@@ -49,5 +49,22 @@ fn main() {
     let john = Person { name, age };
 
     println!("{:#?}", john);
-    // TODO: Implement Display onwards on formatted printing
+
+    // if we want to customize the output of our types we need to use fmt::Display for that we import std::fmt
+    use std::fmt;
+
+    // Define a struct on which to implement Display
+    struct MyVar(i32);
+
+    // To use the formatter we need to manually implement Display
+    impl fmt::Display for MyVar {
+        // This trait requires this EXACT signature
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+            write!(f, "({})", self.0)
+        }
+    }
+
+    println!("{}", MyVar(97));
+
+    // TODO: Read 1.2.2 && 1.2.2.1 && 1.2.3
 }
