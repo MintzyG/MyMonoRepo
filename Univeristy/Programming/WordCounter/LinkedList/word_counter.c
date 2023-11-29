@@ -23,71 +23,118 @@ Node* createNode(char letra){
 }
 
 void adicionarElemento(char letra, List* myList){
-
   Node* node, *last, *new_node;
   node = myList->first;
 
-  if (!node) { myList->first = createNode(letra); myList->amount += 1; }
+  if (node == NULL) {
+    myList->first = createNode(letra);
+    myList->amount += 1;
+    return;
+  }
 
   do {
     if (node->letter == letra) {
-      node->amount += 1;
-      break;
+      node->amount += 1;  
+      return;
     }
 
     if (letra < node->letter) {
       new_node = createNode(letra);
       new_node->prox = node;
       myList->amount += 1;
-      if (last) {
-        last->prox = new_node;
-      } else {
-        myList->first = new_node;
-      }
-    } else {
+      if (last == NULL) { myList->first = new_node; }
+      else { last->prox = new_node; }
+      break;
+    }
+    else {
       last = node;
       node = node->prox;
     }
-  } while (node);
-  if (!node) {
+  } while (node != NULL);
+
+  if (node == NULL) {
     new_node = createNode(letra);
-    new_node->prox = node;
+    new_node->prox = NULL;
     myList->amount += 1;
-    if(last){ last->prox = new_node; }
+    if (last != NULL) { last->prox = new_node; }
   }
 }
 
 void ShowList(Node* node){
-
   while (node) {
     printf("%c: %d\n", node->letter, node->amount);
     node = node->prox;
   }
+}
 
+void Place(Node* node, List* myList){
+  Node *sort, *last;
+  sort = myList->last;
+  last = NULL;
+  
+  if(sort == NULL){
+    node->prox = NULL;
+    myList->last = node;
+    return;
+  }
+
+  do {
+    if (sort->amount >  node->amount) {
+      if (last != NULL) {
+        myList->last = node;
+        node->prox = sort;
+      } else {
+        node->prox = last->prox;
+        last->prox = node;
+      }
+      break;
+    }
+
+    last = sort;
+    sort = sort->prox;
+
+  } while (sort != NULL);
+
+  if (last != NULL) { last->prox = node; }
+
+}
+
+void SortList(List* myList){
+  Node *node, *next;
+  node = myList->first;
+  while (node != NULL) {
+    next = node->prox;
+    Place(node, myList);
+    node = next;
+  }
 }
 
 int main() {
 
-	FILE *arquivo;
-	arquivo = fopen("text.txt", "r");
-	if(!arquivo) {
-		printf("Couldn't open file");
-		exit(1);
-	}
+  FILE *arquivo;
+  arquivo = fopen("text.txt", "r");
+  if(!arquivo) {
+    printf("Couldn't open file");
+    exit(1);
+  }
 
   List myList;
   myList.first = NULL;
   myList.last = NULL;
 
   char letra;
-  while(!feof(arquivo)) {
-		fscanf(arquivo, "%c", &letra);	
-		adicionarElemento(letra, &myList);
-	}
+  while((letra = fgetc(arquivo)) != EOF) {
+    adicionarElemento(letra, &myList);
+  }
 
-	fclose(arquivo);
-	
+  fclose(arquivo);
+ 
+  printf("Lista\n");
   ShowList(myList.first);
+
+  printf("Ordenando lista\n");
+  // SortList(&myList);
+  // ShowList(myList.first);
 
   return 0;
 }
