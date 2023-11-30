@@ -15,49 +15,41 @@ typedef struct List {
 }List;
 
 Node* createNode(char letra){
-    Node* node = (Node*)malloc(sizeof(Node));
-    node->letter = letra;
-    node->amount = 1;
-    node->prox = NULL;
-    return node;
+  Node* node = (Node*)malloc(sizeof(Node));
+  node->letter = letra;
+  node->amount = 1;
+  node->prox = NULL;
+  return node;
 }
 
-void adicionarElemento(char letra, List* myList){
-  Node* node, *last, *new_node;
-  node = myList->first;
+void AddElement(char letra, List *lst) {
+  Node *node, *last, *new;
+  last = NULL;
+  node = lst->first;
+  if(!node) { lst->first = createNode(letra); lst->amount +=1; return; }
 
-  if (node == NULL) {
-    myList->first = createNode(letra);
-    myList->amount += 1;
-    return;
-  }
+  do{
+    if(node->letter == letra) { node->amount +=1; break; }
 
-  do {
-    if (node->letter == letra) {
-      node->amount += 1;  
-      return;
-    }
-
-    if (letra < node->letter) {
-      new_node = createNode(letra);
-      new_node->prox = node;
-      myList->amount += 1;
-      if (last == NULL) { myList->first = new_node; }
-      else { last->prox = new_node; }
+    if(letra < node->letter) {
+      new = createNode(letra);
+      new->prox = node;
+      lst->amount += 1;
+      if (last) { last->prox = new; }
+      else { lst->first = new; }
       break;
     }
-    else {
-      last = node;
-      node = node->prox;
-    }
-  } while (node != NULL);
 
-  if (node == NULL) {
-    new_node = createNode(letra);
-    new_node->prox = NULL;
-    myList->amount += 1;
-    if (last != NULL) { last->prox = new_node; }
-  }
+    last = node;
+    node = node->prox;
+    } while (node);
+
+    if(!node) {
+      new = createNode(letra);
+      new->prox = node;
+      lst->amount += 1;
+      if(last) { last->prox = new; }
+    }
 }
 
 void ShowList(Node* node){
@@ -67,46 +59,26 @@ void ShowList(Node* node){
   }
 }
 
-void Place(Node* node, List* myList){
-  Node *sort, *last;
-  sort = myList->last;
-  last = NULL;
-  
-  if(sort == NULL){
-    node->prox = NULL;
-    myList->last = node;
+void SortList(List* myList){
+  if (myList->first == NULL) {
     return;
   }
 
-  do {
-    if (sort->amount >  node->amount) {
-      if (last != NULL) {
-        myList->last = node;
-        node->prox = sort;
-      } else {
-        node->prox = last->prox;
-        last->prox = node;
-      }
-      break;
-    }
-
-    last = sort;
-    sort = sort->prox;
-
-  } while (sort != NULL);
-
-  if (last != NULL) { last->prox = node; }
-
-}
-
-void SortList(List* myList){
-  Node *node, *next;
-  node = myList->first;
+  Node* dummy = createNode('0');
+  Node* node = myList->first;
+  Node* last = dummy;
+  Node* next = NULL;
   while (node != NULL) {
     next = node->prox;
-    Place(node, myList);
+    while (last->prox != NULL &&  last->prox->amount < node->amount) {
+      last = last->prox;
+    }
+    node->prox = last->prox;
+    last->prox = node;
+    last = dummy;
     node = next;
   }
+
 }
 
 int main() {
@@ -124,7 +96,7 @@ int main() {
 
   char letra;
   while((letra = fgetc(arquivo)) != EOF) {
-    adicionarElemento(letra, &myList);
+    AddElement(letra, &myList);
   }
 
   fclose(arquivo);
@@ -133,8 +105,8 @@ int main() {
   ShowList(myList.first);
 
   printf("Ordenando lista\n");
-  // SortList(&myList);
-  // ShowList(myList.first);
+  SortList(&myList);
+  ShowList(myList.first);
 
   return 0;
 }
