@@ -1,6 +1,0 @@
-\babel@toc {brazil}{}\relax 
-\contentsline {chapter}{\numberline {1}Paradigma Funcional}{5}{}%
-\contentsline {section}{\numberline {1.1}Variáveis}{5}{}%
-\contentsline {section}{\numberline {1.2}Funções}{5}{}%
-\contentsline {chapter}{\numberline {2}Paradigma Lógico}{7}{}%
-\contentsline {chapter}{\numberline {3}Paradigma Imperativo}{9}{}%

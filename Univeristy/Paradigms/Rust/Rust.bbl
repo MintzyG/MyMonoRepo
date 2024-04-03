@@ -1,0 +1,68 @@
+\begin{thebibliography}{Wam21}
+
+\bibitem[Bin14]{Bin14}
+Andrew Binstock.
+\newblock The rise and fall of languages in 2013, 2014.
+\newblock
+  \url{https://drdobbs.com/jvm/the-rise-and-fall-of-languages-in-2013/240165192}
+  [Accessed: (04.04.2024)].
+
+\bibitem[Cas24]{Cas24}
+Cassiopeiae.
+\newblock Nova and staging rust abstractions, 2024.
+\newblock \url{https://lore.kernel.org/dri-devel/Zfsj0_tb-0-tNrJy@cassiopeiae/}
+  [Accessed: (04.04.2024)].
+
+\bibitem[Hun18]{Hunt2018}
+John Hunt.
+\newblock {\em A Beginner's Guide to Scala, Object Orientation and Functional
+  Programming}.
+\newblock Springer-Verlag International, Cham, Switzerland, 2 edition, March
+  2018.
+
+\bibitem[RH04]{roy04}
+Peter~Van Roy and Seif Haridi.
+\newblock {\em {Concepts, Techniques and Models of Computer Programming}}.
+\newblock {The MIT Press}, Cambridge, 2004.
+
+\bibitem[Seb18]{Sebesta2018}
+Robert~W. Sebesta.
+\newblock {\em {Conceitos de Linguagens de Programa{\c{c}}{\~a}o}}.
+\newblock Bookman, {Porto Alegre, RS}, 11 edition, 2018.
+
+\bibitem[Upa19]{Upadhyaya2019}
+Bhim~P. Upadhyaya.
+\newblock {\em Data Structures and Algorithms with Scala}.
+\newblock Springer-Verlag International, Cham, Switzerland, 1 edition, March
+  2019.
+
+\bibitem[Wam21]{Wampler2021}
+Dean Wampler.
+\newblock {\em Programming Scala}.
+\newblock O'Reilly Media Inc., Sebastopol, CA, 3 edition, July 2021.
+
+\bibitem[Wes23]{Wes23}
+David Weston.
+\newblock Bluehat il 2023 - david weston - default security, 2023.
+\newblock \url{https://www.youtube.com/watch?v=8T6ClX-y2AE} [Accessed:
+  (04.04.2024)].
+
+\bibitem[Wha20]{Whaling2020}
+Richard Whaling.
+\newblock {\em Modern Systems Programming with Scala Native}.
+\newblock O'Reilly Media Inc., Raleigh, NC, 1 edition, February 2020.
+
+\bibitem[Wik24]{WikiPlan24}
+Wikipedia.
+\newblock Plan 9 from bell labs, 2024.
+\newblock \url{https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs} [Accessed:
+  (04.04.2024)].
+
+\bibitem[Wu24]{Wu24}
+Yuchen Wu.
+\newblock Open sourcing pingora: our rust framework for building programmable
+  network services, 2024.
+\newblock \url{https://blog.cloudflare.com/pingora-open-source} [Accessed:
+  (04.04.2024)].
+
+\end{thebibliography}
