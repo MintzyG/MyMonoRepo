@@ -1,0 +1,4 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Sample Chapter}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Some Definitions}{2}{subsection.1.1}%
+\contentsline {section}{\numberline {A}Bonus Material}{3}{appendix.A}%

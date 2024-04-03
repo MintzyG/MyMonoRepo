@@ -1,0 +1,33 @@
+\babel@toc {brazil}{}\relax 
+{\pdfbookmark [0]{Sum\'ario}{toc}}
+\contentsline {chapter}{\numberline {1} Introdu\c {c}\~{a}o}{7}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Aspectos hist\'{o}ricos da linguagem Rust}{7}{section.1.1}%
+\contentsline {section}{\numberline {1.2}\'{A}reas de Aplica\c {c}\~{a}o da Linguagem}{8}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Backend}{8}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Sistemas Operacionais e Hardware}{8}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Desenvolvimento Web}{9}{subsection.1.2.3}%
+\contentsline {chapter}{\numberline {2} Conceitos b\'{a}sicos da Linguagem Scala}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Vari\'{a}veis e constantes}{11}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Tipos de Dados B\'{a}sicos}{11}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}String}{11}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.3}Operadores e Express\~{o}es em Scala}{12}{section.2.3}%
+\contentsline {chapter}{\numberline {3} Programa\c {c}\~{a}o em Scala}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Entradas e sa\'{\i }das}{13}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Entrada e Sa\'{\i }da formatada}{13}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Sele\c {c}\~{a}o}{13}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Repeti\c {c}\~{a}o}{13}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Fun\c {c}\~{o}es}{13}{section.3.4}%
+\contentsline {section}{\numberline {3.5}M\'{o}dulos e Subprogramas}{13}{section.3.5}%
+\contentsline {chapter}{\numberline {4} Aplica\c {c}\~{o}es da Linguagem Scala}{15}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Opera\c {c}\~{o}es b\'{a}sicas}{15}{section.4.1}%
+\contentsline {section}{\numberline {4.2}O algoritmo Quicksort en Scala}{15}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Programa de C\'{a}lculo Num\'{e}rico}{16}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Aplica\c {c}\~{a}o usando Matrizes}{16}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Aplica\c {c}\~{o}es Profissionais}{16}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Ferramentas existentes e utilizadas}{17}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Editores para Fortran}{17}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Compiladores}{17}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Ambientes de Programa\c {c}\~{a}o IDE para Scala}{17}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Considera\c {c}\~{o}es Finais}{19}{chapter.6}%
+\contentsline {chapter}{\textcolor {ocre}{Bibliografia}}{22}{chapter*.3}%
+\contentsfinish 
