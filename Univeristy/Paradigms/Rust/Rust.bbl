@@ -7,12 +7,6 @@ Andrew Binstock.
   \url{https://drdobbs.com/jvm/the-rise-and-fall-of-languages-in-2013/240165192}
   [Accessed: (04.04.2024)].
 
-\bibitem[Cas24]{Cas24}
-Cassiopeiae.
-\newblock Nova and staging rust abstractions, 2024.
-\newblock \url{https://lore.kernel.org/dri-devel/Zfsj0_tb-0-tNrJy@cassiopeiae/}
-  [Accessed: (04.04.2024)].
-
 \bibitem[Hun18]{Hunt2018}
 John Hunt.
 \newblock {\em A Beginner's Guide to Scala, Object Orientation and Functional
@@ -51,12 +45,6 @@ David Weston.
 Richard Whaling.
 \newblock {\em Modern Systems Programming with Scala Native}.
 \newblock O'Reilly Media Inc., Raleigh, NC, 1 edition, February 2020.
-
-\bibitem[Wik24]{WikiPlan24}
-Wikipedia.
-\newblock Plan 9 from bell labs, 2024.
-\newblock \url{https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs} [Accessed:
-  (04.04.2024)].
 
 \bibitem[Wu24]{Wu24}
 Yuchen Wu.
