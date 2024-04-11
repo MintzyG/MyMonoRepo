@@ -8,15 +8,37 @@
 int main() {
   srand(time(NULL));
 
-  Conjunto* C = CreateConjunto();
-  
-  C->InsertElement(C, 70);
+  Conjunto* CA = CreateConjunto();
+  Conjunto* CB = CreateConjunto();
 
-  for (int i = 0; i < 6; i++) { C->InsertElement(C, i); }
-  C->ShowElements(C);
+  CA->id = 1;
+  CB->id = 2;
 
-  C->RemoveElement(C, 70);
-  C->ShowElements(C);
-  
+  CA->InsertElement(CA, 70);
+  CB->InsertElement(CB, 70);
+
+  for (int i = 0; i < 9; i++) { CA->InsertElement(CA, i+1); }
+  for (int i = 6; i < 12; i++) { CB->InsertElement(CB, i+1); }
+  CA->InsertElement(CA, 4);
+  CA->ShowElements(CA);
+  CB->ShowElements(CB);
+
+  CA->RemoveElement(CA, 70);
+  CA->RemoveElement(CA, 4);
+  CA->ShowElements(CA);
+
+  CA->ContainsElement(CA, 4);
+  CA->ContainsElement(CA, 29);
+
+  CA->Info(CA);
+  CB->Info(CB);
+  printf("Trying Union\n");
+  Conjunto* U = CA->Union(CA, CB);
+  Conjunto* I = CA->Intersection(CA, CB);
+
+  U->ShowElements(U);
+  I->ShowElements(I);
+
+
   return 0;
 }

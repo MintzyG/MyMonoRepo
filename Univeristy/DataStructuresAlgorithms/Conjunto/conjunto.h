@@ -6,10 +6,11 @@ struct Conjunto {
   int size, capacity;
 
   int smallest, biggest;
+  int id;
 
   void (*InsertElement)(Conjunto*, int);
   void (*RemoveElement)(Conjunto*, int);
-  void (*ContainsElement)(Conjunto*, int);
+  int (*ContainsElement)(Conjunto*, int);
 
   Conjunto* (*Union)(Conjunto*, Conjunto*);
   Conjunto* (*Intersection)(Conjunto*, Conjunto*);
@@ -24,6 +25,7 @@ struct Conjunto {
 
   void (*Sort)(Conjunto*);
   void (*ShowElements)(Conjunto*);
+  void (*Info)(Conjunto*);
 };
 
 void FreeConjunto(Conjunto*);
