@@ -124,7 +124,7 @@ void GenericSearch(Contacts* self, void (*func)(Contacts* self, int index)){
   if (counter == 0) {
     return;
   } else if (counter == 1) {
-    printf("editar usuario 1:\n");
+    printf("------------USANDO O SELECIONADO------------\n\n");
     PrintContact(self->People[index], index);
     if (func != NULL) { func(self, index); }
     return;
@@ -139,7 +139,7 @@ void GenericSearch(Contacts* self, void (*func)(Contacts* self, int index)){
   if (counter == 0) {
     return;
   } else if (counter == 1) {
-    printf("editar usuario 2:\n");
+    printf("------------USANDO O SELECIONADO------------\n\n");
     PrintContact(self->People[index], index);
     if (func != NULL) { func(self, index); }
     return;
@@ -155,7 +155,13 @@ void GenericSearch(Contacts* self, void (*func)(Contacts* self, int index)){
   if (counter == 0) {
     return;
   } else if (counter == 1) {
-    printf("editar usuario 3:\n");
+    printf("------------USANDO O SELECIONADO------------\n\n");
+    PrintContact(self->People[index], index);
+    if (func != NULL) { func(self, index); }
+    return;
+  } else {
+    printf("\n\nMULTIPLOS USUARIOS IDENTICOS DETECTADOS\n");
+    printf("------------USANDO O ULTIMO------------\n\n");
     PrintContact(self->People[index], index);
     if (func != NULL) { func(self, index); }
     return;

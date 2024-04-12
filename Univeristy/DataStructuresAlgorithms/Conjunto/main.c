@@ -17,7 +17,6 @@ int main() {
   CA->InsertElement(CA, 70);
   CB->InsertElement(CB, 70);
   CB->InsertElement(CA, 0);
-  CB->InsertElement(CB, 0);
 
   for (int i = 0; i < 9; i++) { CA->InsertElement(CA, i+1); }
   for (int i = 6; i < 12; i++) { CB->InsertElement(CB, i+1); }
@@ -34,7 +33,6 @@ int main() {
 
   CA->Info(CA);
   CB->Info(CB);
-  printf("Trying Union\n");
   Conjunto* U = CA->Union(CA, CB);
   Conjunto* I = CA->Intersection(CA, CB);
 
