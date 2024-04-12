@@ -12,6 +12,7 @@ struct Conjunto {
   void (*RemoveElement)(Conjunto*, int);
   int (*ContainsElement)(Conjunto*, int);
 
+  Conjunto* (*RemoveDuplicates)(Conjunto*);
   Conjunto* (*Union)(Conjunto*, Conjunto*);
   Conjunto* (*Intersection)(Conjunto*, Conjunto*);
   Conjunto* (*Difference)(Conjunto*, Conjunto*);
@@ -26,6 +27,7 @@ struct Conjunto {
   void (*Sort)(Conjunto*);
   void (*ShowElements)(Conjunto*);
   void (*Info)(Conjunto*);
+  void (*FindAndSetExtremes)(Conjunto*);
 };
 
 void FreeConjunto(Conjunto*);

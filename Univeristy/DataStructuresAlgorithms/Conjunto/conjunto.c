@@ -32,8 +32,18 @@ int IsEmpty(Conjunto* C) {
   return 0;
 }
 
+void FindAndSetExtremes(Conjunto* C) {
+  C->Sort(C);
+  int s = C->numeros[0];
+  int b = C->numeros[C->size - C->capacity - 1];
+
+  C->SetSmallest(C, s);
+  C->SetBiggest(C, b);
+}
+
 void ShowElements(Conjunto* C) {
   if (IsEmpty(C)) { return; }
+  C->Sort(C);
   for(int i = 0; i < C->size - C->capacity; i++) {
     printf("%d ", C->numeros[i]);
   }
@@ -49,6 +59,12 @@ void InsertElement(Conjunto* C, int element) {
   int index = C->size - C->capacity;
   C->numeros[index] = element;
   C->capacity -= 1;
+
+  if (C->GetSmallest(C) > element) {
+    C->SetSmallest(C, element);
+  } else if (C->GetBiggest(C) < element) {
+    C->SetBiggest(C, element);
+  }
   // printf("Added element to %d: S->%d and C->%d\n", C->id, C->size, C->capacity);
 }
 
@@ -58,6 +74,7 @@ void RemoveElement(Conjunto* C, int element) {
   C->numeros[index] = C->numeros[C->size - C->capacity - 1];
   C->numeros[C->size - C->capacity - 1] = 0;
   C->capacity += 1;
+  C->FindAndSetExtremes(C);
   // printf("Removed element from %d: S->%d and C->%d\n", C->id, C->size, C->capacity);
 }
 
@@ -79,6 +96,17 @@ int ContainsElement(Conjunto* C, int element) {
   }
 }
 
+Conjunto* RemoveDuplicates(Conjunto* C) {
+  for (int i = 0; i < C->size - C->capacity; i++){
+    for (int j = 0; j < C->size - C->capacity; j++){
+      if (C->numeros[i] == C->numeros[j] && i != j) {
+        C->RemoveElement(C, C->numeros[i]);
+      }
+    }
+  }
+  return C;
+}
+
 Conjunto* Union(Conjunto* CA, Conjunto* CB) {
   Conjunto* tmp = CreateConjunto();
   tmp->numeros = calloc(CA->size + CB->size, sizeof *tmp);
@@ -86,6 +114,8 @@ Conjunto* Union(Conjunto* CA, Conjunto* CB) {
   memcpy(tmp->numeros + (CA->size - CA->capacity), CB->numeros, (CB->size - CB->capacity) * sizeof *(tmp->numeros));
   tmp->size = CA->size + CB->size;
   tmp->capacity = CA->capacity + CB->capacity;
+  RemoveDuplicates(tmp);
+  tmp->FindAndSetExtremes(tmp);
   return tmp;
 }
 
@@ -98,30 +128,39 @@ Conjunto* Intersection(Conjunto* CA, Conjunto* CB) {
       }
     }
   }
+  tmp->FindAndSetExtremes(tmp);
   return tmp;
 }
 
 Conjunto* Difference(Conjunto* CA, Conjunto* CB) {
-  printf("%d, %d", CA->size, CB->size);
-  return NULL;
+  Conjunto* A = Union(CA, CB);
+  Conjunto* B = Intersection(CA, CB);
+
+  for (int i = 0; i < B->size - B->capacity; i++){
+    RemoveElement(A, B->numeros[i]);
+  }
+
+  A->FindAndSetExtremes(A);
+  free(B);
+  return A;
 }
 
 int GetBiggest(Conjunto* C) {
-  printf("%d", C->size);
-  return 0;
+  C->FindAndSetExtremes(C);
+  return C->biggest;
 }
 
 int GetSmallest(Conjunto* C) {
-  printf("%d", C->size);
-  return 0;
+  C->FindAndSetExtremes(C);
+  return C->smallest;
 }
 
 void SetBiggest(Conjunto* C, int number) {
-  printf("%d, %d", C->size, number);
+  C->biggest = number;
 }
 
 void SetSmallest(Conjunto* C, int number) {
-  printf("%d, %d", C->size, number);
+  C->smallest = number;
 }
 
 int AssertEquals(Conjunto* CA, Conjunto* CB) {
@@ -129,13 +168,22 @@ int AssertEquals(Conjunto* CA, Conjunto* CB) {
   return 0;
 }
 
+int Compare(const void *a, const void *b){
+  int A = *((int*)a);
+  int B = *((int*)b);
+
+  if (A < B) {return -1;}
+  else if (A > B) {return 1;}
+  else {return 0;}
+}
+
 void Sort(Conjunto* C) {
-  printf("%d", C->size);
+  qsort(C->numeros, (C->size - C->capacity), sizeof(int), Compare);
 }
 
 void Info(Conjunto* C) {
   printf("Size: %d\n", C->size);
-  printf("Capacity: %d\n", C->size);
+  printf("Capacity: %d\n", C->capacity);
 }
 
 void FreeConjunto(Conjunto* C) {
@@ -162,6 +210,8 @@ Conjunto* CreateConjunto() {
     .SetSmallest = SetSmallest,
     .AssertEquals = AssertEquals,
     .ShowElements = ShowElements,
+    .RemoveDuplicates = RemoveDuplicates,
+    .FindAndSetExtremes = FindAndSetExtremes,
     .Info = Info,
     .Sort = Sort,
     .id = 0,
