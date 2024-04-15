@@ -16,6 +16,8 @@ structure.tex
 /build/
 /bundle/
 
+O-lytics/
+
 # It's common to configure the PLTADDONDIR to be here.
 /add-on/
 
