@@ -164,8 +164,21 @@ void SetSmallest(Conjunto* C, int number) {
 }
 
 int AssertEquals(Conjunto* CA, Conjunto* CB) {
-  printf("%d, %d", CA->size, CB->size);
-  return 0;
+  CA->Sort(CA);
+  CB->Sort(CB);
+  CA->RemoveDuplicates(CA);
+  CB->RemoveDuplicates(CB);
+
+  if ((CA->size - CA->capacity) != (CB->size - CB->capacity)){
+    return 0;
+  }
+
+  for (int i = 0; i < CA->size - CA->capacity; i++) {
+    if (CA->numeros[i] != CB->numeros[i]) {
+      return 0;
+    }
+  }
+  return 1;
 }
 
 int Compare(const void *a, const void *b){
@@ -187,7 +200,8 @@ void Info(Conjunto* C) {
 }
 
 void FreeConjunto(Conjunto* C) {
-  printf("%d", C->size);
+  free(C->numeros);
+  free(C);
 }
 
 Conjunto* CreateConjunto() {

@@ -32,5 +32,3 @@ struct Conjunto {
 
 void FreeConjunto(Conjunto*);
 Conjunto* CreateConjunto();
-
-

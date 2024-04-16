@@ -11,7 +11,6 @@ int main() {
         printf("4: REMOVE\n5: SEARCH\n6: INFO\n7: QUIT\nOpcao: ");
         scanf("%d[^\n]", &option);
         scanf("%*c");
-        fflush(stdin);
 
         switch((Options)option) {
             case ADD:
