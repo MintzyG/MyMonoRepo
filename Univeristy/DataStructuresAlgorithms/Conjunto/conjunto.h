@@ -1,3 +1,5 @@
+#pragma once
+
 typedef struct Conjunto Conjunto;
 
 struct Conjunto {

@@ -68,6 +68,7 @@ void InsertElement(Conjunto* C, int element) {
   // printf("Added element to %d: S->%d and C->%d\n", C->id, C->size, C->capacity);
 }
 
+//FIXME: WHILE NAO PARA NUNCA SE NAO TIVER ELEMENTO
 void RemoveElement(Conjunto* C, int element) {
   int index = 0;
   while (C->numeros[index] != element) { index++; }
@@ -79,15 +80,14 @@ void RemoveElement(Conjunto* C, int element) {
 }
 
 int ContainsElement(Conjunto* C, int element) {
-  int index = 0;
+  if (IsEmpty(C)) { return 0; }
 
-  if (IsEmpty(C)) { return -1; }
-  for(; index <= C->size; index++) {
+  for(int index = 0; index <= C->size - C->capacity; index++) {
     if (index == C->size) { break; }
     if (C->numeros[index] == element) { break; }
   }
 
-  if (index == C->size) { 
+  if (index == C->size - C->capacity) { 
     // printf("Couldn't locate element\n"); 
     return 0; 
   } else { 
@@ -128,8 +128,19 @@ Conjunto* Intersection(Conjunto* CA, Conjunto* CB) {
       }
     }
   }
-  tmp->FindAndSetExtremes(tmp);
+  tmp->Sort(tmp);
   return tmp;
+}
+
+//FIXME: Botar no struct e na lista inicializadora
+Conjunto* Minus(Conjunto* CA, Conjunto* CB) {
+  A = CreateConjunto();
+  memcpy(A, CA, sizeof *CA);
+  for (int i = 0; i < B->size - B->capacity; i++){
+    RemoveElement(A, CB->numeros[i]);
+  }
+  A->FindAndSetExtremes(A);
+  return A;
 }
 
 Conjunto* Difference(Conjunto* CA, Conjunto* CB) {

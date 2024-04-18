@@ -32,6 +32,7 @@ int main() {
 
   CA->ContainsElement(CA, 4);
   CA->ContainsElement(CA, 29);
+  CA->ContainsElement(CA, 3);
 
   printf("\n\nQuestions\n\n");
 

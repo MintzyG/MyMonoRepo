@@ -33,7 +33,7 @@ void CreateNode(Head* H) {
   H->first->CR = f;
   H->first->Name = name;
   H->amount += 1;
-  printf("H: ID %d, CR %f, Name %s\n", H->first->ID, H->first->CR, H->first->Name);
+  // printf("H: ID %d, CR %f, Name %s\n", H->first->ID, H->first->CR, H->first->Name);
   return;
 }
 
@@ -43,11 +43,6 @@ void PrintNode(List* L) {
 }
 
 void PrintAll(Head* H) {
-  if(H->first == NULL) {
-    puts("No students in the list");
-    return;
-  }
-
   List* L = H->first;
   while(L) {
     PrintNode(L);
@@ -73,6 +68,7 @@ void FindUser(Head* H) {
   else puts("Couldn't find user");
 }
 
+//FIXME: Se nao tiver estudantes na lista o progama da SIGSEGV
 void DeleteNode(Head* H) {
 
   PrintAll(H);
@@ -84,7 +80,6 @@ void DeleteNode(Head* H) {
 
   List* Current = H->first;
   List* Last = NULL;
-  PrintNode(Last);
 
   while(Current->next) {
     if (Current->ID == ID) {
@@ -98,14 +93,15 @@ void DeleteNode(Head* H) {
 
   if (Current == H->first) {
     H->first = Current->next;
+    free(Current);
     return;
   } else if (Current != NULL && Current->next != NULL) {
-    PrintNode(Current->next);
     Last->next = Current->next;
     free(Current);
     return;
   } else {
     Last->next = NULL;
+    free(Current);
     return;
   }
   puts("Couldn't find user");
@@ -126,16 +122,16 @@ int CompareNode(Head* H) {
   printf("IDA:%d\nIDB:%d\n", IDA, IDB);
 
   puts("Searching A");
-  while(1) {
+  while(StA) {
     if (StA->ID != IDA) {
       StA = StA->next;
     } else {
-      IDA = StA->ID;
+      //IDA = StA->ID;
       break;
     }
   }
   puts("Searching B");
-  while(1) {
+  while(StB) {
     if (StB->ID != IDB) {
       StB = StB->next;
     } else {
@@ -173,5 +169,3 @@ Head* CreateHead() {
   };
   return H;
 }
-
-
